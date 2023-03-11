@@ -2,9 +2,8 @@ import { userlist } from "../../api/products/admin/user_list_api.js";
 
 export async function userListHandler() {
   const users = await userlist();
-  let userList = [...users];
-
-  const liEl = userList.map((list, index) => {
+  const dot = document.querySelector(".dot-wrap");
+  const liEl = users.map((list, index) => {
     const listEl = document.createElement("div");
     listEl.classList.add("list");
     const numberEl = document.createElement("div");
@@ -19,6 +18,9 @@ export async function userListHandler() {
     numberEl.innerHTML = `${index + 1}`;
     nameEl.innerHTML = `${list.displayName}`;
     emailEl.innerHTML = `${list.email}`;
+    if (list.profileImg === null) {
+      list.profileImg = "https://via.placeholder.com/200x200?text=NO+IMAGE";
+    }
     profileEl.innerHTML = `<img src="${list.profileImg}" alt="프로필">`;
 
     listEl.append(numberEl, nameEl, emailEl, profileEl);
@@ -26,4 +28,5 @@ export async function userListHandler() {
   });
   const adminUserListEl = document.querySelector(".admin_userlist");
   adminUserListEl.append(...liEl);
+  dot.style.display = "none";
 }
