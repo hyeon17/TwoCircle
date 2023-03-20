@@ -1,8 +1,7 @@
 ## 배포 사이트
-
-[![Netlify Status](https://api.netlify.com/api/v1/badges/df0e144a-736d-44d7-be21-12d6c1573797/deploy-status)](https://app.netlify.com/sites/magical-babka-4591f3/deploys)
-### 접속 링크
-**[TwoCircle(투써클 안경점)](https://magical-babka-4591f3.netlify.app/)**
+[![Netlify Status](https://api.netlify.com/api/v1/badges/9ec7909a-ce0e-4741-9311-5f056733c261/deploy-status)](https://app.netlify.com/sites/dapper-blancmange-23af79/deploys)
+## 접속 링크
+## **[TwoCircle](https://dapper-blancmange-23af79.netlify.app/)**
 ## TwoCircle 프로젝트 소개
 REST API를 활용하여 Vanilla JavaScript로 제작한 안경 쇼핑몰입니다.
 - 유저는 회원가입 및 로그인 후 상품 구매를 사용할 수 있으며 그 외 주문내역, 개인정보수정 등이 가능하고 계좌관리(계좌등록)을 통해 구매가 가능합니다.
@@ -180,9 +179,3 @@ TwoCircle
 4. root경로에 .env 파일 생성 후, api관련 정보(API_KEY, ADMIN) 입력
 5. $ npm run dev
 ```
-### .env 파일 작성 내용
-```
-API_KEY = 'f0c76938a5f580afe2b8f69f0ec4a47d'
-ADMIN = admin@naver.com
-```
-

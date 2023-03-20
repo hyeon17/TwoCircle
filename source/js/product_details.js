@@ -208,16 +208,16 @@ export async function productDetailHandler(id) {
         imageUrl: "https://avatars.githubusercontent.com/u/124231330?s=200&v=4",
         link: {
           // [내 애플리케이션] > [플랫폼] 에서 등록한 사이트 도메인과 일치해야 함
-          mobileWebUrl: "https://magical-babka-4591f3.netlify.app",
-          webUrl: "https://magical-babka-4591f3.netlify.app",
+          mobileWebUrl: "https://dapper-blancmange-23af79.netlify.app",
+          webUrl: "https://dapper-blancmange-23af79.netlify.app",
         },
       },
       buttons: [
         {
           title: "웹사이트로 이동",
           link: {
-            mobileWebUrl: "https://magical-babka-4591f3.netlify.app",
-            webUrl: "https://magical-babka-4591f3.netlify.app",
+            mobileWebUrl: "https://dapper-blancmange-23af79.netlify.app",
+            webUrl: "https://dapper-blancmange-23af79.netlify.app",
           },
         },
       ],
