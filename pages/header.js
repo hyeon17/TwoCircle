@@ -81,7 +81,7 @@ export function headerRender() {
     <section class="event">
       <div class="event_wrap">
         <div class="swiper-container event-swiper">
-          <p class="team">TEAM5<br><span>23.01.30<br>~ ING</span></p>
+          <p class="team">TEAM5<br><span>23.01.30<br>~23.03.10</span></p>
           <div class="swiper-wrapper">
             <div class="swiper-slide">
               <a href="https://github.com/Nevacat" target="_blank">
