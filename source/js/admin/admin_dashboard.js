@@ -2,6 +2,7 @@ import { productDataHandler } from "../admin/admin_products_data.js";
 import { transactionDetail } from "../../api/products/admin/product_transactions_api.js";
 import { allProduct } from "../../api/products/admin/allProduct_api.js";
 import { userlist } from "../../api/products/admin/user_list_api.js";
+import { updatePagination, displayPage } from "../pagination.js";
 
 export async function dashBoardHandler() {
   const { sunGlass, goggles, glassesFrame, best, newItem, md } = await productDataHandler();
@@ -10,7 +11,7 @@ export async function dashBoardHandler() {
   const itemList = await transactionDetail();
   const dot = document.querySelector(".dot-wrap");
   const bodyEl = document.querySelector("body");
-  const pageNationEl = document.querySelector(".table_pagination");
+  const paginationContainer = document.querySelector(".table_pagination");
   let itemLength = 0;
   let currentPage = 1;
   let itemsPerPage = 10;
@@ -139,123 +140,51 @@ export async function dashBoardHandler() {
   // 페이지네이션
   const listItems = document.querySelectorAll(".list");
   itemLength = listItems.length;
-  updatePageNation(itemLength, itemsPerPage, currentPage);
-  displayPage(currentPage, itemsPerPage);
-
-  // 페이지 업데이트
-  function updatePageNation(numItems, itemsPerPage, currentPage) {
-    const numPages = Math.ceil(numItems / itemsPerPage);
-    pageNationEl.innerHTML = "";
-
-    const groupSize = 5;
-    const groupIndex = Math.floor((currentPage - 1) / groupSize);
-    const startPage = groupIndex * groupSize + 1;
-    const endPage = Math.min(startPage + groupSize - 1, numPages);
-
-    const firstLink = createPageNation(currentPage - groupSize, "<<");
-    pageNationEl.appendChild(firstLink);
-
-    const prevLink = createPageNation(currentPage - groupSize, "<");
-    pageNationEl.appendChild(prevLink);
-    if (currentPage === 1) {
-      disableLink(firstLink);
-      disableLink(prevLink);
-    }
-
-    for (let i = startPage; i <= endPage; i++) {
-      const link = createPageNation(i, i);
-      pageNationEl.appendChild(link);
-    }
-
-    const nextLink = createPageNation(currentPage + 1, ">");
-    pageNationEl.appendChild(nextLink);
-
-    const lastLink = createPageNation(numPages, ">>");
-    pageNationEl.appendChild(lastLink);
-    if (currentPage === numPages) {
-      disableLink(nextLink);
-      disableLink(lastLink);
-    }
-  }
-
-  // 페이지 생성
-  function createPageNation(pageNumber, label) {
-    const link = document.createElement("a");
-    link.classList.add("dashboard-link");
-    link.href = "#";
-    if (typeof label === "number") {
-      link.classList.add("page-link");
-      if (label === currentPage) {
-        link.classList.add("active-link");
-      }
-    } else {
-      link.classList.add("arrow-link");
-    }
-    link.dataset.page = pageNumber;
-    link.textContent = label;
-    return link;
-  }
-
-  function disableLink(link) {
-    link.disabled = true;
-    link.classList.add("arrow-link-unactive");
-  }
-
-  function displayPage(pageNum, itemsPerPage) {
-    const startIndex = (pageNum - 1) * itemsPerPage;
-    const endIndex = startIndex + itemsPerPage;
-
-    listItems.forEach((item) => {
-      item.style.display = "none";
-    });
-
-    for (let i = startIndex; i < endIndex && i < listItems.length; i++) {
-      listItems[i].style.display = "flex";
-    }
-  }
+  updatePagination(itemLength, itemsPerPage, currentPage, paginationContainer);
+  displayPage(currentPage, itemsPerPage, listItems);
 
   // 페이지 클릭 이벤트
-  pageNationEl.addEventListener("click", (event) => {
+  paginationContainer.addEventListener("click", (event) => {
     event.preventDefault();
     const link = event.target;
 
     if (link.classList.contains("page-link")) {
       const pageNum = parseInt(link.dataset.page, 10);
       currentPage = pageNum;
-      updatePageNation(itemLength, itemsPerPage, currentPage);
-      displayPage(pageNum, itemsPerPage);
+      updatePagination(itemLength, itemsPerPage, currentPage, paginationContainer);
+      displayPage(pageNum, itemsPerPage, listItems);
     }
     if (link.textContent === "<<") {
       if (currentPage === 1) {
         return;
       }
       currentPage = 1;
-      updatePageNation(itemLength, itemsPerPage, currentPage);
-      displayPage(currentPage, itemsPerPage);
+      updatePagination(itemLength, itemsPerPage, currentPage, paginationContainer);
+      displayPage(currentPage, itemsPerPage, listItems);
     }
     if (link.textContent === "<") {
       if (currentPage === 1) {
         return;
       }
       currentPage -= 1;
-      updatePageNation(itemLength, itemsPerPage, currentPage);
-      displayPage(currentPage, itemsPerPage);
+      updatePagination(itemLength, itemsPerPage, currentPage, paginationContainer);
+      displayPage(currentPage, itemsPerPage, listItems);
     }
     if (link.textContent === ">") {
       if (currentPage === Math.ceil(itemLength / itemsPerPage)) {
         return;
       }
       currentPage += 1;
-      updatePageNation(itemLength, itemsPerPage, currentPage);
-      displayPage(currentPage, itemsPerPage);
+      updatePagination(itemLength, itemsPerPage, currentPage, paginationContainer);
+      displayPage(currentPage, itemsPerPage, listItems);
     }
     if (link.textContent === ">>") {
       if (currentPage === Math.ceil(itemLength / itemsPerPage)) {
         return;
       }
       currentPage = Math.ceil(itemLength / itemsPerPage, currentPage);
-      updatePageNation(itemLength, itemsPerPage, currentPage);
-      displayPage(currentPage, itemsPerPage);
+      updatePagination(itemLength, itemsPerPage, currentPage, paginationContainer);
+      displayPage(currentPage, itemsPerPage, listItems);
     }
   });
 

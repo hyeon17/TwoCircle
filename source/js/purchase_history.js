@@ -4,6 +4,7 @@ import { checkAccount } from '../api/account/account_add_check';
 import { purchaseHistory } from '../api/products/user/purchase_history_api';
 import { purchaseOk } from '../api/products/user/purchase_ok_api';
 import { purchaseCancel } from '../api/products/user/purchase_cancel_api';
+import { updatePagination, displayPage } from './pagination.js';
 
 export async function purchaseHandler() {
   const listItemContainerEl = document.querySelector('.list_item_container');
@@ -329,130 +330,53 @@ export async function purchaseHandler() {
 
     const listItems = listItemContainerEl.querySelectorAll('ul li');
     itemLength = listItems.length;
-    updatePagination(itemLength, itemsPerPage, currentPage);
-    displayPage(currentPage, itemsPerPage);
-  }
+    updatePagination(itemLength, itemsPerPage, currentPage, paginationContainer);
+    displayPage(currentPage, itemsPerPage, listItems);
 
-  //페이지네이션
-  function updatePagination(numItems, itemsPerPage, currentPage) {
-    const numPages = Math.ceil(numItems / itemsPerPage);
-    paginationContainer.innerHTML = '';
+    paginationContainer.addEventListener('click', (event) => {
+      event.preventDefault();
+      const link = event.target;
 
-    const groupSize = 5; 
-    const groupIndex = Math.floor((currentPage - 1) / groupSize);
-    const startPage = groupIndex * groupSize + 1;
-    const endPage = Math.min(startPage + groupSize - 1, numPages);
-
-    // 처음으로
-    const firstLink = createPaginationLink(currentPage - groupSize, '<<');
-    paginationContainer.appendChild(firstLink);
-    
-    // 이전
-    const prevLink = createPaginationLink(currentPage - groupSize, '<');
-    paginationContainer.appendChild(prevLink);
-    if (currentPage === 1) {
-      firstLink.disabled = true;
-      prevLink.disabled = true;
-      firstLink.classList.add('arrow-link-unactive');
-      prevLink.classList.add('arrow-link-unactive');
-    }
-    else {
-      firstLink.disabled = false;
-      prevLink.disabled = false;
-      firstLink.classList.remove('arrow-link-unactive');
-      prevLink.classList.remove('arrow-link-unactive');
-    }
-
-    
-    for (let i = startPage; i <= endPage; i++) {
-      const link = createPaginationLink(i, i);
-      paginationContainer.appendChild(link);
-    }
-
-    // 다음
-    const nextLink = createPaginationLink(endPage, '>');
-    paginationContainer.appendChild(nextLink);
-    
-
-    //마지막
-    const lastLink = createPaginationLink(numPages, '>>');
-    paginationContainer.appendChild(lastLink);
-    if (currentPage === numPages) {
-      nextLink.disabled = true;
-      lastLink.disabled = true;
-      nextLink.classList.add('arrow-link-unactive');
-      lastLink.classList.add('arrow-link-unactive');
-    }
-    else {
-      nextLink.disabled = false;
-      lastLink.disabled = false;
-      nextLink.classList.remove('arrow-link-unactive');
-      lastLink.classList.remove('arrow-link-unactive');
-    }
-    
-  }
-
-  function createPaginationLink(pageNumber, label) {
-    const link = document.createElement('a');
-    link.href = '#';
-    if (typeof label === 'number') {
-      link.classList.add('page-link');
-      if (label === currentPage) {
-        link.classList.add('active-link');
+      if (link.classList.contains('page-link')) {
+        const pageNum = parseInt(link.dataset.page, 10);
+        currentPage = pageNum;
+        updatePagination(itemLength, itemsPerPage, currentPage, paginationContainer);
+        displayPage(pageNum, itemsPerPage, listItems);
       }
-    }
-    else {
-      link.classList.add('arrow-link');
-    }
-    link.dataset.page = pageNumber;
-    link.textContent = label;
-    return link;
-  }
-
-  function displayPage(pageNum, itemsPerPage) {
-    const startIndex = (pageNum - 1) * itemsPerPage;
-    const endIndex = startIndex + itemsPerPage;
-
-    const listItems = document.querySelectorAll('.list_item_container li');
-    listItems.forEach((item) => {
-      item.style.display = 'none';
+      if (link.textContent === '<<') {
+        if (currentPage === 1) {
+          return;
+        }
+        currentPage = 1;
+        updatePagination(itemLength, itemsPerPage, currentPage, paginationContainer);
+        displayPage(currentPage, itemsPerPage, listItems);
+      }
+      if (link.textContent === '<') {
+        if (currentPage === 1) {
+          return;
+        }
+        currentPage -= 1;
+        updatePagination(itemLength, itemsPerPage, currentPage, paginationContainer);
+        displayPage(currentPage, itemsPerPage, listItems);
+      }
+      if (link.textContent === '>') {
+        if (currentPage === Math.ceil(itemLength / itemsPerPage)) {
+          return;
+        }
+        currentPage += 1;
+        updatePagination(itemLength, itemsPerPage, currentPage, paginationContainer);
+        displayPage(currentPage, itemsPerPage, listItems);
+      }
+      if (link.textContent === '>>') {
+        if (currentPage === Math.ceil(itemLength / itemsPerPage)) {
+          return;
+        }
+        currentPage = Math.ceil(itemLength / itemsPerPage, currentPage);
+        updatePagination(itemLength, itemsPerPage, currentPage, paginationContainer);
+        displayPage(currentPage, itemsPerPage, listItems);
+      }
     });
-
-    for (let i = startIndex; i < endIndex && i < listItems.length; i++) {
-      listItems[i].style.display = 'flex';
-    }
   }
-
-  paginationContainer.addEventListener('click', (event) => {
-    event.preventDefault();
-    const link = event.target;
-    if (link.classList.contains('page-link')) {
-      const pageNum = parseInt(link.dataset.page, 10);
-      currentPage = pageNum;
-      updatePagination(itemLength, itemsPerPage, currentPage);
-      displayPage(pageNum, itemsPerPage);
-    }
-    if (link.textContent === '<<') {
-      currentPage = 1;
-      updatePagination(itemLength, itemsPerPage, currentPage);
-      displayPage(currentPage, itemsPerPage);
-    }
-    if (link.textContent === '<') {
-      currentPage -= 1;
-      updatePagination(itemLength, itemsPerPage, currentPage);
-      displayPage(currentPage, itemsPerPage);
-    }
-    if (link.textContent === '>') {
-      currentPage += 1;
-      updatePagination(itemLength, itemsPerPage, currentPage);
-      displayPage(currentPage, itemsPerPage);
-    }
-    if (link.textContent === '>>') {
-      currentPage = Math.ceil(itemLength / itemsPerPage, currentPage);
-      updatePagination(itemLength, itemsPerPage, currentPage);
-      displayPage(currentPage, itemsPerPage);
-    }
-  });
 
   //로딩
   function showLoading() {
