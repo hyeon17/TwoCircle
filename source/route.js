@@ -28,6 +28,7 @@ import { productUpdate } from '../pages/admin/product_update.js';
 import { userListRender } from '../pages/admin/admin_userlist.js';
 import { admin } from './js/admin/admin.js';
 import { dashBoardRender } from "../pages/admin/admin_dashboard.js";
+import { notFoundRender } from '../pages/notfound/404page.js';
 
 // const userSystemPreferColorThemeQuery = "(prefers-color-scheme: dark)";
 // const userSystemTheme = window.matchMedia(userSystemPreferColorThemeQuery).matches ? 'dark' : 'light';
@@ -190,5 +191,8 @@ router
       const ativeNav = document.querySelector('.menu_prd_list');
       ativeNav.classList.add('now_page');
     },
+  })
+  .notFound(() => {
+    notFoundRender();
   })
   .resolve();
