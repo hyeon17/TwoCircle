@@ -179,3 +179,7 @@ TwoCircle
 4. root경로에 .env 파일 생성 후, api관련 정보(API_KEY, ADMIN) 입력
 5. $ npm run dev
 ```
+### 관리자 .env
+```
+ADMIN = admin@naver.com
+```
