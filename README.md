@@ -62,7 +62,7 @@ PW : abcd1234
 ### 프로젝트 기술 스택
 
 - Basic: `HTML` `SCSS` `JAVASCRIPT`
-- Library: `node-fetch` `Parcel` `Swiper` `Navigo` `Netlify`
+- Library: `Swiper` `Navigo` `chart.js`
 - Deploy: `Netlify`
 - Bundler: `Parcel 1`
 
