@@ -47,6 +47,7 @@ PW : abcd1234
 - Bundler: `Parcel 1`
 
 ## 3. 프로젝트 구조
+### 3.1 폴더 구조
 ```
 TwoCircle
 ├─ image
@@ -102,7 +103,10 @@ TwoCircle
 │     └─ wish_list.js
 └─ static
 ```
-
+### 3.2 아키텍쳐
+![아키텍쳐](/image/readme/twocircle%20아키텍쳐.png)
+### 3.3 Figma
+[Figma](https://www.figma.com/file/yeJG4aTWGf0OV3Vnw0O0dF/%ED%88%AC%EC%8D%A8%ED%81%B4-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8?type=design&node-id=0-1&mode=design&t=7Bs4ToKtTtBnOw7y-0)
 ## 4. 프로젝트 기능
 - 로그인, 회원가입, 비밀번호 확인
 - 메인페이지에서 상품을 확인
