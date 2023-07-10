@@ -1,5 +1,6 @@
 import { router } from "../../source/route.js";
 import { loading } from "../../source/js/loading.js";
+import { shareMessage } from "./shareKakao.js";
 
 export async function productDetailHandler(id) {
   // DOM 요소 변수
@@ -22,6 +23,8 @@ export async function productDetailHandler(id) {
   const codeEl = document.querySelector(".product_info_code");
   loading();
   const dot = document.querySelector(".dot-wrap");
+  const url = new URL(document.location.href);
+	const path = url.pathname;
 
   // 초기화
   const INITIAL_COUNT_VALUE = 1;
@@ -195,33 +198,8 @@ export async function productDetailHandler(id) {
   // 공유 버튼 클릭 이벤트
   const shareBtnEl = document.querySelector("#kakaotalk-sharing-btn");
   shareBtnEl.addEventListener("click", () => {
-    shareMessage();
+    shareMessage(id.thumbnail, id.title, id.description, path);
   });
 
-  // 카카오톡 공유
-  function shareMessage() {
-    Kakao.Share.sendDefault({
-      objectType: "feed",
-      content: {
-        title: "TwoCircle",
-        description: "패스트캠퍼스 4기 프론트엔드 프로젝트",
-        imageUrl: "https://avatars.githubusercontent.com/u/124231330?s=200&v=4",
-        link: {
-          // [내 애플리케이션] > [플랫폼] 에서 등록한 사이트 도메인과 일치해야 함
-          mobileWebUrl: "https://dapper-blancmange-23af79.netlify.app",
-          webUrl: "https://dapper-blancmange-23af79.netlify.app",
-        },
-      },
-      buttons: [
-        {
-          title: "웹사이트로 이동",
-          link: {
-            mobileWebUrl: "https://dapper-blancmange-23af79.netlify.app",
-            webUrl: "https://dapper-blancmange-23af79.netlify.app",
-          },
-        },
-      ],
-    });
-  }
   dot.style.display = "none";
 }

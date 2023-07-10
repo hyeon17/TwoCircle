@@ -1,10 +1,10 @@
-import { productDetail } from "../../source/api/products/common/product_detail_api.js";
-import { productDetailHandler } from "../../source/js/product_details.js";
+import { productDetail } from '../../source/api/products/common/product_detail_api.js';
+import { productDetailHandler } from '../../source/js/product_details.js';
 
 export async function productDetailRender(data) {
-  const id = await productDetail(data.data.id);
-  const app = document.querySelector("#app");
-  app.innerHTML = /* html */ `
+	const id = await productDetail(data.data.id);
+	const app = document.querySelector('#app');
+	app.innerHTML = /* html */ `
     <div class="wrap_container">
       <div class="product_detail">
         <div class="dot-wrap dot_loading">
@@ -23,7 +23,7 @@ export async function productDetailRender(data) {
             <!-- 제품 정보 -->
             <div class="product_info">
               <div class="title">
-              <div class="product_info_title">${id.title.replace(/\/.*/, "")}</div>
+              <div class="product_info_title">${id.title.replace(/\/.*/, '')}</div>
               <div class="product_info_code"></div>
             </div>
               <!-- 평점, 찜 유뮤, share -->
@@ -52,7 +52,7 @@ export async function productDetailRender(data) {
                       <button class="btn_plus">+</button>
                     </div>
                     <div class="option_price">
-                      <div class="option_content_price">${id.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}원
+                      <div class="option_content_price">${id.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원
                       </div>
                       <div class="option_content_discount"></div>
                     </div>
@@ -64,8 +64,8 @@ export async function productDetailRender(data) {
                 <div class="count_totaltext">총 상품금액</div>
                 <div class="count_totalprice">
                 ${Math.round(id.price * ((100 - id.discountRate) * 0.01))
-                  .toString()
-                  .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}원
+									.toString()
+									.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원
                 </div>
               </div>
               <!-- 찜, 장바구니, 구매 버튼 -->
@@ -89,5 +89,5 @@ export async function productDetailRender(data) {
       </div>
     </div>
 `;
-  productDetailHandler(id);
+	productDetailHandler(id);
 }
