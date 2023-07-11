@@ -11,11 +11,11 @@ export function notFoundHandler() {
     clock.innerHTML = `메인페이지 이동까지 <span style="color: #FF597B; font-weight: bold;">${remainingTime}</span>초 남았습니다`;
     remainingTime--;
     if (remainingTime < 0) {
-      clearInterval(intervalId);
+      clearTimeout(intervalId);
       router.navigate('/');
     }
   }
 
   // 초마다 업데이트
-  const intervalId = setInterval(updateClock, 1000);
+  const intervalId = setTimeout(updateClock, 1000);
 }
