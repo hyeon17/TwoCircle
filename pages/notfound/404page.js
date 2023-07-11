@@ -5,9 +5,9 @@ export function notFoundRender() {
   <div id="wrap">
     <div class="wrap_container">
       <div class="notfound">
+        <img src="../../image/notfound.png" alt="404" />
         <div class="title">존재하지 않는 페이지 입니다</div>
-        <div class="info">3초후 메인페이지로 이동합니다</div>
-        <div class="clock"></div>
+        <button class="home">홈으로 이동</button>
       </div>
     </div>
   </div>

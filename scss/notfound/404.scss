@@ -1,19 +1,38 @@
-.notfound{
+.notfound {
   display: flex;
   flex-direction: column;
   align-items: center;
   height: 50rem;
-  .title{
+
+  img {
+    width: 10rem;
+    height: 10rem;
+  }
+
+  .title {
     font-size: 4rem;
     font-weight: bold;
     margin-top: 5rem;
   }
-  .info{
-    font-size: 3rem;
-    margin-top: 2rem;
-  }
-  .clock{
-    margin-top: 2rem;
-    font-size: 2.5rem;
+
+  .home {
+    margin-top: 5rem;
+    width: 20rem;
+    height: 5rem;
+    cursor: pointer;
+    text-decoration: none;
+    color: var(--font-color);
+    background-color: transparent;
+    padding: 1rem;
+    border-radius: 5px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    transition: all 0.3s ease-in-out;
+
+    &:hover {
+      background-color: var(--pink-color);
+      color: var(--white-color);
+      border-color: transparent;
+    }
   }
 }
