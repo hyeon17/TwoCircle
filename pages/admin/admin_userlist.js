@@ -1,8 +1,8 @@
-import { userListHandler } from "../../source/js/admin/user_list.js";
+import { userListHandler } from '../../source/js/admin/user_list.js';
 
 export function userListRender() {
-  const admin = document.querySelector("#admin");
-  admin.innerHTML = /* html */ `
+	const admin = document.querySelector('#admin');
+	admin.innerHTML = /* html */ `
   <div class="container">
     <div class="title">
       <h2>회원 목록</h2>
@@ -15,7 +15,8 @@ export function userListRender() {
         <div class="navbar_profile">프로필</div>
       </div>
     </div> 
+    <div class="user_pagination"></div>
   </div>
   `;
-  userListHandler();
+	userListHandler();
 }
