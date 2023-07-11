@@ -24,7 +24,8 @@
       flex: 2;
     }
   }
-  .navbar>div{
+
+  .navbar>div {
     text-align: center;
   }
 
@@ -67,5 +68,34 @@
     align-items: center;
     text-align: center;
     height: 8rem;
+  }
+}
+
+.user_pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 2rem;
+
+  .dashboard-link {
+    text-align: center;
+    width: 4rem;
+    padding: 1rem;
+    margin: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    color: var(--font-color);
+    transition: .5s;
+
+    &:hover {
+      background-color: var(--pink-color);
+      color: #eee;
+    }
+  }
+
+  .active-link {
+    background-color: var(--pink-color);
+    color: #eee;
   }
 }
